@@ -1,0 +1,62 @@
+<html>
+    <head>
+        <style>
+            /* Center the buttons container horizontally and vertically */
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                margin: 0;
+                background-color: #f0f4f8;
+                font-family: Arial, sans-serif;
+                flex-direction: column;
+            }
+            /* Container for buttons */
+            .button-container {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+                margin-bottom: 30px;
+            }
+            /* Style for buttons and links */
+            .button-link {
+                display: inline-block;
+                background: linear-gradient(45deg, #6a11cb, #2575fc);
+                color: white;
+                padding: 15px 30px;
+                font-size: 16px;
+                border-radius: 30px;
+                cursor: pointer;
+                box-shadow: 0 4px 15px rgba(37, 117, 252, 0.4);
+                text-decoration: none;
+                text-align: center;
+                transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+                user-select: none;
+            }
+            /* Hover effect */
+            .button-link:hover {
+                background: linear-gradient(45deg, #2575fc, #6a11cb);
+                box-shadow: 0 6px 20px rgba(37, 117, 252, 0.7);
+                transform: scale(1.1);
+            }
+            /* Active effect */
+            .button-link:active {
+                transform: scale(0.95);
+                box-shadow: 0 3px 10px rgba(37, 117, 252, 0.5);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="button-container">
+            <a href="monday.html" class="button-link">monday</a>
+            <a href="tuesday.html" class="button-link">tuesday</a>
+            <a href="wednesday.html" class="button-link">wednesday</a>
+            <a href="thursday.html" class="button-link">thursday</a>
+            <a href="friday.html" class="button-link">friday</a>
+            <a href="saturday.html" class="button-link">saturday</a>
+            <a href="sunday.html" class="button-link">sunday</a>
+        </div>
+    </body>
+</html>
