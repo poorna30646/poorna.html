@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>PAN Card</title>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap');
+            body, html {
+                height: 100%;
+                margin: 0;
+                font-family: 'Roboto Slab', serif;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                background: linear-gradient(-45deg, #007BFF, #00C6FF, #0056b3, #00AFFF);
+                background-size: 400% 400%;
+                animation: backgroundAnimation 15s ease infinite;
+            }
+            @keyframes backgroundAnimation {
+                0% {background-position: 0% 50%;}
+                50% {background-position: 100% 50%;}
+                100% {background-position: 0% 50%;}
+            }
+            .header-button-container {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                padding: 15px 0;
+                background-color: rgba(0, 51, 102, 0.8);
+                box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            }
+            .header-button {
+                background-color: #003366;
+                color: white;
+                border: none;
+                border-radius: 8px;
+                padding: 10px 30px;
+                font-size: 20px;
+                font-weight: 700;
+                cursor: pointer;
+                box-shadow: 0 0 10px #003366;
+                transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+                user-select: none;
+            }
+            .header-button:hover {
+                background-color: #001f4d;
+                transform: scale(1.1);
+                box-shadow: 0 0 20px #001f4d;
+            }
+            .header-button:active {
+                transform: scale(0.95);
+                background-color: #000d26;
+            }
+            .card-container {
+                perspective: 1000px;
+                flex-grow: 1;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+            }
+            .card {
+                width: 322px;
+                height: 204px;
+                position: relative;
+                transform-style: preserve-3d;
+                transition: transform 0.8s;
+                cursor: pointer;
+                border-radius: 15px;
+                box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            }
+            .card.flipped {
+                transform: rotateY(180deg);
+            }
+            .card-front, .card-back {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                backface-visibility: hidden;
+                border-radius: 15px;
+                box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            }
+            .card-front {
+                background: linear-gradient(135deg, #fefefe 0%, #dcdcdc 100%);
+                color: #222;
+                display: flex;
+                flex-direction: row;
+                border: 2px solid #003366;
+            }
+            .left-section {
+                width: 35%;
+                background: #003366;
+                border-radius: 12px 0 0 12px;
+                color: white;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                padding: 15px 10px;
+                font-weight: 700;
+                font-size: 12px;
+                text-align: center;
+                letter-spacing: 1.5px;
+                user-select: none;
+            }
+            .left-section img {
+                width: 50px;
+                margin-bottom: 10px;
+                border-radius: 8px;
+                object-fit: cover;
+                border: 1px solid white;
+                padding: 3px;
+                background-color: white;
+            }
+            .right-section {
+                width: 65%;
+                padding-left: 15px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+            .header {
+                font-weight: 900;
+                font-size: 12px;
+                color: #003366;
+                margin-bottom: 10px;
+                letter-spacing: 1.5px;
+                border-bottom: 2px solid #003366;
+                padding-bottom: 3px;
+                user-select: none;
+            }
+            .field {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 6px;
+                user-select: none;
+            }
+            .field label {
+                font-weight: 700;
+                color: #222;
+                letter-spacing: 0.8px;
+                font-size: 11px;
+            }
+            .field .value {
+                font-weight: 600;
+                color: #444;
+                max-width: 60%;
+                text-align: right;
+                word-wrap: break-word;
+                border-bottom: 1px solid #ccc;
+                padding-bottom: 1px;
+                font-size: 11px;
+            }
+            .signature {
+                font-size: 9px;
+                color: #555;
+                text-align: right;
+                margin-top: 10px;
+                font-style: italic;
+                user-select: none;
+            }
+            .card-back {
+                background: #003366;
+                color: white;
+                transform: rotateY(180deg);
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                font-size: 14px;
+                padding: 15px;
+                border: 2px solid #003366;
+                border-radius: 15px;
+                box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+                backface-visibility: hidden;
+                position: absolute;
+                width: 100%;
+                height: 100%;
+            }
+            .back-content {
+                text-align: center;
+                width: 100%;
+            }
+            .pan-number {
+                font-weight: 700;
+                font-size: 14px;
+                color: #fff;
+                margin-bottom: 8px;
+                letter-spacing: 2px;
+                user-select: none;
+            }
+            .back-content img {
+                width: 70px;
+                margin-bottom: 10px;
+            }
+            .back-content p {
+                margin: 0 0 15px 0;
+                font-size: 12px;
+                font-weight: 600;
+                color: #ccc;
+            }
+            .back-content button {
+                padding: 6px 15px;
+                font-size: 12px;
+                background-color: #003366;
+                color: white;
+                border: none;
+                border-radius: 6px;
+                cursor: pointer;
+                box-shadow: 0 0 10px #003366;
+                transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+                user-select: none;
+            }
+            .back-content button:hover {
+                background-color: #001f4d;
+                transform: scale(1.1);
+                box-shadow: 0 0 20px #001f4d;
+            }
+            .back-content button:active {
+                transform: scale(0.95);
+                background-color: #000d26;
+            }
+        </style>
+        <script>
+            function generatePanNumber(name, aadhar) {
+                // Simple PAN number generation logic:
+                // 5 letters (first 3 letters of name uppercase + 2 random letters)
+                // 4 digits (last 4 digits of aadhar or random digits)
+                // 1 letter (random uppercase letter)
+                if (!name) name = 'ABC';
+                if (!aadhar) aadhar = '000000000000';
+
+                const cleanName = name.replace(/[^A-Za-z]/g, '').toUpperCase();
+                const first3 = cleanName.substring(0, 3).padEnd(3, 'X');
+
+                const randomLetters = () => {
+                    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                    return letters.charAt(Math.floor(Math.random() * letters.length)) +
+                        letters.charAt(Math.floor(Math.random() * letters.length));
+                };
+
+                const last4Digits = aadhar.slice(-4).padStart(4, '0');
+
+                const randomLetter = () => {
+                    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                    return letters.charAt(Math.floor(Math.random() * letters.length));
+                };
+
+                return first3 + randomLetters() + last4Digits + randomLetter();
+            }
+
+            function goBack() {
+                if (window.history.length > 1) {
+                    window.history.back();
+                } else {
+                    window.location.href = 'panhome.html';
+                }
+            }
+            // Function to populate PAN card details from localStorage
+            function populateDetails() {
+                var candidateName = localStorage.getItem('candidateName');
+                var fatherName = localStorage.getItem('fatherName');
+                var motherName = localStorage.getItem('motherName');
+                var aadhar = localStorage.getItem('aadhar');
+                var dob = localStorage.getItem('dob');
+                var imageData = localStorage.getItem('imageData');
+
+                document.getElementById('candidateNameValue').textContent = candidateName ? candidateName : 'RAHUL KUMAR';
+                document.getElementById('fatherNameValue').textContent = fatherName ? fatherName : 'SURESH KUMAR';
+                document.getElementById('motherNameValue').textContent = motherName ? motherName : 'ANITA KUMARI';
+                document.getElementById('aadharValue').textContent = aadhar ? aadhar : 'ABCDE1234F';
+                document.getElementById('dobValue').textContent = dob ? dob : '01-01-1970';
+                if (imageData) {
+                    document.getElementById('imageDisplay').src = imageData;
+                } else {
+                    document.getElementById('imageDisplay').src = 'image.png';
+                }
+
+                const panNumber = generatePanNumber(candidateName, aadhar);
+                document.getElementById('panNumber').textContent = panNumber;
+            }
+            function toggleCardFlip() {
+                const card = document.getElementById('card');
+                card.classList.toggle('flipped');
+            }
+            window.onload = populateDetails;
+        </script>
+    </head>
+    <body>
+        <div class="header-button-container">
+            <button class="header-button" onclick="window.location.href='panhome.html'">Pancard Generator</button>
+        </div>
+        <div class="card-container" onclick="toggleCardFlip()">
+            <div class="card" id="card">
+                <div class="card-front">
+                    <div class="left-section">
+                        <img id="imageDisplay" src="image.png" alt="Candidate Image" />
+                        <div>PAN CARD</div>
+                    </div>
+                    <div class="right-section">
+                        <div class="header">INCOME TAX DEPARTMENT</div>
+                        <div class="field">
+                            <label>Candidate Name:</label>
+                            <div class="value" id="candidateNameValue">RAHUL KUMAR</div>
+                        </div>
+                        <div class="field">
+                            <label>Father's Name:</label>
+                            <div class="value" id="fatherNameValue">SURESH KUMAR</div>
+                        </div>
+                        <div class="field">
+                            <label>Mother's Name:</label>
+                            <div class="value" id="motherNameValue">ANITA KUMARI</div>
+                        </div>
+                        <div class="field">
+                            <label>Aadhar Number:</label>
+                            <div class="value" id="aadharValue">ABCDE1234F</div>
+                        </div>
+                        <div class="field">
+                            <label>Date of Birth:</label>
+                            <div class="value" id="dobValue">01-01-1970</div>
+                        </div>
+                        <div class="signature">Signature</div>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <div class="back-content">
+                        <div class="pan-number" id="panNumber">ABCDE1234F</div>
+                        <img src="image.png" alt="Government Logo" />
+                        <p>Govt of India All Rights Reserved</p>
+                        <button onclick="goBack()">Go Back</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
