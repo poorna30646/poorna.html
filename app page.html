@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>App2 - Animated Page</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #6b73ff 0%, #000dff 100%);
+            color: white;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            animation: fadeInDown 1s ease forwards;
+        }
+        .button-container {
+            display: flex;
+            gap: 20px;
+        }
+        button {
+            background-color: #ff4081;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border-radius: 30px;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 64, 129, 0.6);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeInUp 1s ease forwards;
+            animation-delay: 0.5s;
+            opacity: 0;
+        }
+        button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(255, 64, 129, 0.9);
+        }
+        @keyframes fadeInDown {
+            0% {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .content {
+            text-align: center;
+            max-width: 600px;
+            animation: fadeIn 2s ease forwards;
+            animation-delay: 1s;
+            opacity: 0;
+        }
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to the Animated App Page</h1>
+    <div class="button-container">
+        <button onclick="alert('Button 1 clicked!')">Button 1</button>
+        <button onclick="alert('Button 2 clicked!')">Button 2</button>
+    </div>
+    <div class="content">
+        <p>This page demonstrates simple animations and interactive buttons to create an app-like experience.</p>
+    </div>
+</body>
+</html>
