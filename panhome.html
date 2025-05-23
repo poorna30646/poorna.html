@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta charset="UTF-8" />
+    <title>PAN Card Input</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap');
+        body, html {
+            height: 100vh;
+            margin: 0;
+            font-family: 'Roboto Slab', serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: linear-gradient(-45deg, #007BFF, #00C6FF, #0056b3, #00AFFF);
+            background-size: 400% 400%;
+            animation: backgroundAnimation 15s ease infinite;
+            padding: 20px;
+        }
+        @keyframes backgroundAnimation {
+            0% {background-position: 0% 50%;}
+            50% {background-position: 100% 50%;}
+            100% {background-position: 0% 50%;}
+        }
+        .header-button-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .header-button {
+            background-color: #003366;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 30px;
+            font-size: 20px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 0 10px #003366;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            user-select: none;
+        }
+        .header-button:hover {
+            background-color: #001f4d;
+            transform: scale(1.1);
+            box-shadow: 0 0 20px #001f4d;
+        }
+        .header-button:active {
+            transform: scale(0.95);
+            background-color: #000d26;
+        }
+        .input-form {
+            background: #fefefe;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            width: 520px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .input-group {
+            display: flex;
+            flex-direction: column;
+        }
+        .input-group label {
+            font-weight: 700;
+            color: #003366;
+            margin-bottom: 5px;
+        }
+        .input-group input[type="text"], .input-group input[type="file"], .input-group input[type="date"] {
+            padding: 8px 10px;
+            font-size: 16px;
+            border: 2px solid #003366;
+            border-radius: 6px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+        .input-group input[type="text"]:focus, .input-group input[type="file"]:focus, .input-group input[type="date"]:focus {
+            border-color: #00AFFF;
+        }
+        .button-group {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        button {
+            padding: 10px 25px;
+            font-size: 16px;
+            background-color: #003366;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            box-shadow: 0 0 10px #003366;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            user-select: none;
+        }
+        button:hover {
+            background-color: #001f4d;
+            transform: scale(1.05);
+            box-shadow: 0 0 20px #001f4d;
+        }
+        button:active {
+            transform: scale(0.95);
+            background-color: #000d26;
+        }
+    </style>
+    <script>
+        function saveDetails() {
+            const candidateName = document.getElementById('candidateNameInput').value.trim();
+            const fatherName = document.getElementById('fatherNameInput').value.trim();
+            const motherName = document.getElementById('motherNameInput').value.trim();
+            const aadhar = document.getElementById('aadharInput').value.trim();
+            const dob = document.getElementById('dobInput').value;
+
+            if (!candidateName && !fatherName && !motherName && !aadhar && !dob) {
+                alert('Please enter at least one detail before submitting.');
+                return;
+            }
+
+            if(candidateName) localStorage.setItem('candidateName', candidateName);
+            if(fatherName) localStorage.setItem('fatherName', fatherName);
+            if(motherName) localStorage.setItem('motherName', motherName);
+            if(aadhar) localStorage.setItem('aadhar', aadhar);
+            if(dob) localStorage.setItem('dob', dob);
+
+            window.location.href = 'pancard.html';
+        }
+        function resetDetails() {
+            localStorage.removeItem('candidateName');
+            localStorage.removeItem('fatherName');
+            localStorage.removeItem('motherName');
+            localStorage.removeItem('aadhar');
+            localStorage.removeItem('dob');
+            localStorage.removeItem('imageData');
+
+            document.getElementById('candidateNameInput').value = '';
+            document.getElementById('fatherNameInput').value = '';
+            document.getElementById('motherNameInput').value = '';
+            document.getElementById('aadharInput').value = '';
+            document.getElementById('dobInput').value = '';
+            document.getElementById('imageInput').value = '';
+        }
+        function handleImageUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    localStorage.setItem('imageData', e.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+        window.onload = function() {
+            document.getElementById('candidateNameInput').value = localStorage.getItem('candidateName') || '';
+            document.getElementById('fatherNameInput').value = localStorage.getItem('fatherName') || '';
+            document.getElementById('motherNameInput').value = localStorage.getItem('motherName') || '';
+            document.getElementById('aadharInput').value = localStorage.getItem('aadhar') || '';
+            document.getElementById('dobInput').value = localStorage.getItem('dob') || '';
+        };
+    </script>
+</head>
+<body>
+    
+    <div class="header-button-container">
+        <button class="header-button" onclick="window.location.reload()">Pancard Generator</button>
+    </div>
+    <div class="input-form">
+        <div class="input-group">
+            <label for="candidateNameInput">Name</label>
+            <input type="text" id="candidateNameInput" placeholder="Enter candidate name" />
+        </div>
+        <div class="input-group">
+            <label for="fatherNameInput">Father's Name</label>
+            <input type="text" id="fatherNameInput" placeholder="Enter father's name" />
+        </div>
+        <div class="input-group">
+            <label for="motherNameInput">Mother's Name</label>
+            <input type="text" id="motherNameInput" placeholder="Enter mother's name" />
+        </div>
+        <div class="input-group">
+            <label for="aadharInput">Aadhar</label>
+            <input type="text" id="aadharInput" placeholder="Enter Aadhar number" />
+        </div>
+        <div class="input-group">
+            <label for="dobInput">Date of Birth</label>
+            <input type="date" id="dobInput" />
+        </div>
+        <div class="input-group">
+            <label for="imageInput">Upload Image</label>
+            <input type="file" id="imageInput" accept="image/*" onchange="handleImageUpload(event)" />
+        </div>
+        <div class="button-group">
+            <button onclick="saveDetails()">Submit</button>
+            <button onclick="resetDetails()">Reset</button>
+        </div>
+    </div>
+</body>
+</html>
