@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <script>
+            function a()
+            {
+                var s=document.getElementById("a").value;
+                var d=s.split(",");
+                document.getElementById("p").innerHTML=(d);
+                 document.getElementById("p1").innerHTML=(json.stringify(d));
+            }
+        </script>
+    </head>
+    <body>
+        enter array elements:<input type="text" id="a">
+        <h1 id="p"></h1>
+        <h2 id="p1"></h2>
+        <button onclick="a()">click me to see array</button>
+    </body>
+</html>
